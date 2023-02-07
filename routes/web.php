@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +22,13 @@ Route::get('/', function () {
 Route::get('/about', function () {
     echo 'this is aabout page';
 })->middleware('check');
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+
+Route::get('/category/all', [CategoryController::class, 'allCategories'])->name('all.category');
+Route::post('/category/add', [CategoryController::class, 'addCategory'])->name('store.category');
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $users = User::all();
+        return view('dashboard', compact('users'));
     })->name('dashboard');
 });
