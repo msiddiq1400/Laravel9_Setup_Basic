@@ -36,6 +36,9 @@ Route::post('/category/update/{id}', [CategoryController::class, 'updateCategory
 //brand routes
 Route::get('/brand/all', [BrandController::class, 'allBrands'])->name('all.brand');
 Route::post('/brand/add', [BrandController::class, 'addBrand'])->name('store.brand');
+Route::get('/brand/edit/{id}', [BrandController::class, 'editBrand']);
+Route::post('/brand/update/{id}', [BrandController::class, 'updateBrand']);
+Route::get('/brand/delete/{id}', [BrandController::class, 'deleteBrand']);
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {

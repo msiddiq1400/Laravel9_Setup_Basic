@@ -33,11 +33,11 @@
                                 <tr>
                                     <th scope="row">{{$brands->firstItem() + $loop->index}}</th>
                                     <td>{{$brand->brand_name}}</td>
-                                    <td><img src="" alt=""/></td>
+                                    <td><img src={{asset($brand->brand_image)}} alt="" style="height:70px; width:70px"/></td>
                                     <td>{{$brand->created_at}}</td>
                                     <td>
                                         <a href="{{url('brand/edit/'.$brand->id)}}" class="btn btn-info">Edit</a>
-                                        <a href="{{url('brand/delete/'.$brand->id)}}" class="btn btn-danger">Delete</a>
+                                        <a href="{{url('brand/delete/'.$brand->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to Delete ?')">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
