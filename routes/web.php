@@ -40,6 +40,10 @@ Route::get('/brand/edit/{id}', [BrandController::class, 'editBrand']);
 Route::post('/brand/update/{id}', [BrandController::class, 'updateBrand']);
 Route::get('/brand/delete/{id}', [BrandController::class, 'deleteBrand']);
 
+//multi image routes
+Route::get('/multi/image', [BrandController::class, 'multiImage'])->name('multi.image');
+Route::post('/multi/add', [BrandController::class, 'addMultiImage'])->name('store.image');
+
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $users = User::all();

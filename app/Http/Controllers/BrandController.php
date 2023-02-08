@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Multipic;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -70,5 +71,30 @@ class BrandController extends Controller
         unlink($brand->brand_image);
         $brand->delete();
         return Redirect()->back()->with('success', 'Brand Deleted Successfully');
+    }
+
+    public function multiImage() {
+        $images = Multipic::all();
+        return view('admin.multpic.index', compact('images'));
+    }
+
+    public function addMultiImage (Request $request) {
+        $request->validate([
+            'image' => 'required'
+        ]);
+        $images = $request->file('image');
+
+        foreach ($images as $image) {
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save('images/multi/'.$name_gen);
+            $last_img = 'images/multi/'.$name_gen;
+
+            $mult = new Multipic();
+            $mult->image = $last_img;
+            $mult->save();
+        }
+
+
+        return Redirect()->back()->with('success', 'Inserted Successfully');
     }
 }

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');   
+    }
+
     public function allCategories() {
         $categories = Category::paginate(5);
         $trashCat = Category::onlyTrashed()->paginate(3);
